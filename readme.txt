@@ -1,9 +1,9 @@
 === Yoast SEO - ACF Content Analysis ===
-Contributors: viktorfroberg, marol87,pekz0r, AngryCreative
+Contributors: viktorfroberg, marol87, pekz0r, angrycreative
 Tags: Angry Creative, Yoast SEO, Yoast, SEO, ACF, Advanced Custom Fields
 Requires at least: 4.0
-Tested up to: 4.3.1
-Stable tag: 1.0
+Tested up to: 4.4.1
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,6 +35,9 @@ add_filter('ysacf_exclude_fields', function(){
 2. Activate the plugin through the 'Plugins' menu in WordPress (activate for network if multisite)
 
 == Changelog ==
+
+= 1.1.0 =
+* Bug fixes and stability improvements
 
 = 1.0.0 =
 * First public release

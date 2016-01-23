@@ -25,16 +25,14 @@ jQuery( document ).ready( function($) {
             }
         })
         .done(function(acf_fields) {
-            
+
             $this.setFieldData(acf_fields);
             
 
         })
-        .fail(function() {
+        .fail(function(data) {
             console.log("error");
-        })
-        .always(function() {
-            console.log("complete");
+            console.log(data);
         });
         
     };

@@ -3,8 +3,8 @@
 Plugin Name: Yoast SEO - ACF Content Analysis
 Plugin URI: http://angrycreative.se
 Description: This plugin ensures that Yoast SEO analysize all ACF content including FlexiContent and Repeaters
-Version: 1.0
-Author: ViktorFroberg, marol87, AngryCreative
+Version: 1.1
+Author: ViktorFroberg, marol87, pekz0r, angrycreative
 Author URI: http://angrycreative.se
 License: GPL
 */
@@ -39,15 +39,23 @@ class AC_Yoast_SEO_ACF_Content_Analysis
      */
     public $plugin_slug = 'ysacf';
     
+    /**
+     * Holds the global `$pagenow` variable's value.
+     *
+     * @since    1.1.0
+     * @var string
+     */
+    private $pagenow;
 
     function __construct(){
         
         
-
         add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_scripts'));
         add_action( 'admin_print_scripts-post-new.php', array($this, 'enqueue_admin_scripts') , 999 );
         add_action( 'admin_print_scripts-post.php', array($this, 'enqueue_admin_scripts'), 999 );
-        add_action( 'wp_ajax_' . $plugin_slug . '_get_fields', array($this, 'ajax_get_fields') );
+        add_action( 'wp_ajax_' . $this->plugin_slug . '_get_fields', array($this, 'ajax_get_fields') );
+
+        $this->pagenow = $GLOBALS['pagenow'];
     }
     function get_excluded_fields() {
         return apply_filters( 'ysacf_exclude_fields', array() );
@@ -77,7 +85,7 @@ class AC_Yoast_SEO_ACF_Content_Analysis
                         
                         break;
                     case 'array':
-                        if($key == 'sizes') {
+                        if($key === 'sizes') {
                             // put all images in img tags for scoring.
                             $data = $data.' <img src="'.$item['sizes']['thumbnail'];    
                         } else {
@@ -111,14 +119,26 @@ class AC_Yoast_SEO_ACF_Content_Analysis
      * @since     0.1.0
      */
     public function enqueue_admin_scripts() {
-        $pid = isset($_GET['post']) ? $_GET['post'] : $post->ID;
-        wp_enqueue_script($this->plugin_slug, AC_SEO_ACF_ANALYSIS_PLUGIN_URL . 'yoast-seo-plugin.js', array('jquery', 'yoast-seo', 'wp-seo-post-scraper'), self::VERSION);    
         
-        wp_localize_script($this->plugin_slug, 'yoast_acf_settings', array(
-            'ajax_url' => admin_url( 'admin-ajax.php' ),
-            'id' => $pid,
-            'ajax_action' => $plugin_slug . '_get_fields'
-        ));
+        $analysize_page_types = array(
+            'edit-tags.php',
+            'post.php',
+            'post-new.php',
+
+        );
+
+        if( in_array( $this->pagenow, $analysize_page_types ) ) {
+
+            global $post;
+
+            wp_enqueue_script($this->plugin_slug, AC_SEO_ACF_ANALYSIS_PLUGIN_URL . 'yoast-seo-plugin.js', array('jquery', 'yoast-seo', 'wp-seo-post-scraper'), self::VERSION);    
+            
+            wp_localize_script($this->plugin_slug, 'yoast_acf_settings', array(
+                'ajax_url' => admin_url( 'admin-ajax.php' ),
+                'id' => $post->ID,
+                'ajax_action' => $this->plugin_slug . '_get_fields'
+            ));
+        }
         
     }
 
