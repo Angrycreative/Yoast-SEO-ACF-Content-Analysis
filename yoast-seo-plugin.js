@@ -1,6 +1,5 @@
 jQuery( document ).ready( function($) {
 
-
     var fieldData = "";
     YoastSEO_ACF_Content_Analysis = function() {
         
@@ -14,7 +13,6 @@ jQuery( document ).ready( function($) {
     YoastSEO_ACF_Content_Analysis.prototype.appendACFFields = function(  ) {
 
         var $this = this;
-
         $.ajax({
             url: yoast_acf_settings.ajax_url,
             type: 'POST',

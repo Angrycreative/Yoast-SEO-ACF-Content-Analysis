@@ -47,6 +47,19 @@ class AC_Yoast_SEO_ACF_Content_Analysis
      */
     private $pagenow;
 
+    /**
+     * variable containing places where the plugin will fetch acf data
+     *
+     * @since    1.1.0
+     * @var array
+     */
+    private $analysize_page_types = array(
+            'edit-tags.php',
+            'post.php',
+            'post-new.php',
+
+        );
+
     function __construct(){
         
         
@@ -108,6 +121,7 @@ class AC_Yoast_SEO_ACF_Content_Analysis
 
     function ajax_get_fields() {
         $pid = $_POST['postId'];
+        
         $fields = get_fields( $pid );
 
         wp_send_json( $this->get_field_data( $fields ) );   
@@ -119,23 +133,24 @@ class AC_Yoast_SEO_ACF_Content_Analysis
      * @since     0.1.0
      */
     public function enqueue_admin_scripts() {
-        
-        $analysize_page_types = array(
-            'edit-tags.php',
-            'post.php',
-            'post-new.php',
 
-        );
+        if( in_array( $this->pagenow, $this->analysize_page_types ) ) {
 
-        if( in_array( $this->pagenow, $analysize_page_types ) ) {
+            // if this is a taxonomy, get the taxonomy id else get the post id
+            if($this->pagenow === 'edit-tags.php' ) {
+                $id = $_GET['taxonomy'] . '_' . $_GET['tag_ID'];
+                wp_enqueue_script($this->plugin_slug, AC_SEO_ACF_ANALYSIS_PLUGIN_URL . 'yoast-seo-plugin.js', array('jquery', 'yoast-seo', 'wp-seo-term-scraper'), self::VERSION);    
+            } else {
+                global $post;
+                $id = $post->ID;
+                wp_enqueue_script($this->plugin_slug, AC_SEO_ACF_ANALYSIS_PLUGIN_URL . 'yoast-seo-plugin.js', array('jquery', 'yoast-seo', 'wp-seo-post-scraper'), self::VERSION);    
+            }
 
-            global $post;
-
-            wp_enqueue_script($this->plugin_slug, AC_SEO_ACF_ANALYSIS_PLUGIN_URL . 'yoast-seo-plugin.js', array('jquery', 'yoast-seo', 'wp-seo-post-scraper'), self::VERSION);    
+            
             
             wp_localize_script($this->plugin_slug, 'yoast_acf_settings', array(
                 'ajax_url' => admin_url( 'admin-ajax.php' ),
-                'id' => $post->ID,
+                'id' => $id,
                 'ajax_action' => $this->plugin_slug . '_get_fields'
             ));
         }

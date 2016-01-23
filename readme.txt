@@ -37,7 +37,9 @@ add_filter('ysacf_exclude_fields', function(){
 == Changelog ==
 
 = 1.1.0 =
+* Add support for taxonomies
 * Bug fixes and stability improvements
+* Works with WordPress 4.4.1
 
 = 1.0.0 =
 * First public release
