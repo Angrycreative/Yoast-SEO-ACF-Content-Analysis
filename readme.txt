@@ -1,4 +1,4 @@
-=== Yoast SEO - ACF Content Analysis ===
+=== ACF-Content Analysis for Yoast SEO ===
 Contributors: viktorfroberg, marol87, pekz0r, angrycreative
 Tags: Angry Creative, Yoast SEO, Yoast, SEO, ACF, Advanced Custom Fields
 Requires at least: 4.0

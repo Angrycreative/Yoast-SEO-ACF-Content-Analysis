@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: Yoast SEO - ACF Content Analysis
+Plugin Name: ACF-Content Analysis for Yoast SEO
 Plugin URI: http://angrycreative.se
-Description: This plugin ensures that Yoast SEO analysize all ACF content including FlexiContent and Repeaters
+Description: This plugin ensures that Yoast SEO analysize all ACF content including Flexible Content and Repeaters
 Version: 1.1
 Author: ViktorFroberg, marol87, pekz0r, angrycreative
 Author URI: http://angrycreative.se
@@ -98,7 +98,7 @@ class AC_Yoast_SEO_ACF_Content_Analysis
                         
                         break;
                     case 'array':
-                        if($key === 'sizes') {
+                        if($key === 'sizes' && isset($item['sizes']['thumbnail'])) {
                             // put all images in img tags for scoring.
                             $data = $data.' <img src="'.$item['sizes']['thumbnail'];    
                         } else {
