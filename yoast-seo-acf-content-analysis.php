@@ -3,7 +3,7 @@
 Plugin Name: ACF-Content Analysis for Yoast SEO
 Plugin URI: http://angrycreative.se
 Description: This plugin ensures that Yoast SEO analysize all ACF content including Flexible Content and Repeaters
-Version: 1.1
+Version: 1.1.1
 Author: ViktorFroberg, marol87, pekz0r, angrycreative
 Author URI: http://angrycreative.se
 License: GPL

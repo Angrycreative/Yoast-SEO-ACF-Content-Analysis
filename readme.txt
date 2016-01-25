@@ -3,11 +3,11 @@ Contributors: viktorfroberg, marol87, pekz0r, angrycreative
 Tags: Angry Creative, Yoast SEO, Yoast, SEO, ACF, Advanced Custom Fields
 Requires at least: 4.0
 Tested up to: 4.4.1
-Stable tag: 1.1
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-This plugin ensures that Yoast SEO analysize all ACF content including FlexiContent and Repeaters.
+This plugin ensures that Yoast SEO analysize all ACF content including Flexible Content and Repeaters.
 Requires version 3.0 or later of Yoast SEO plugin.
 
 == Description ==
@@ -35,6 +35,9 @@ add_filter('ysacf_exclude_fields', function(){
 2. Activate the plugin through the 'Plugins' menu in WordPress (activate for network if multisite)
 
 == Changelog ==
+
+= 1.1.1 =
+* Bugfix for undefined index
 
 = 1.1.0 =
 * Add support for taxonomies
