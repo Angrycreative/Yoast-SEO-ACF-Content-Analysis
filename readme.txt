@@ -12,7 +12,7 @@ Requires version 3.0 or later of Yoast SEO plugin.
 
 == Description ==
 
-This plugin ensures that Yoast SEO analysize all ACF content including FlexiContent and Repeaters.
+This plugin ensures that Yoast SEO analysize all ACF content including Flexible Content and Repeaters.
 Requires version 3.0 or later of Yoast SEO plugin.
 
 = Filters =
