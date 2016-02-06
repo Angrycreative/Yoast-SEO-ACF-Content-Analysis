@@ -16,9 +16,9 @@ This plugin ensures that Yoast SEO analysize all ACF content including FlexiCont
 Requires version 3.0 or later of Yoast SEO plugin.
 
 = Filters =
-`ysacf_exclude_fields`: exceclude acf fields from Yoast scoring. Should return array of field names.
+`ysacf_exclude_fields`: exclude acf fields from Yoast scoring. Should return array of field names.
 
-Example: exceclude text-color field from Yoast scoring.
+Example: exclude text-color field from Yoast scoring.
 
 `
 add_filter('ysacf_exclude_fields', function(){
