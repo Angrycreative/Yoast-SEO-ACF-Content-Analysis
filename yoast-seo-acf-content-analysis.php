@@ -3,7 +3,7 @@
 Plugin Name: ACF-Content Analysis for Yoast SEO
 Plugin URI: http://angrycreative.se
 Description: This plugin ensures that Yoast SEO analysize all ACF content including Flexible Content and Repeaters
-Version: 1.1.1
+Version: 1.2.0
 Author: ViktorFroberg, marol87, pekz0r, angrycreative
 Author URI: http://angrycreative.se
 License: GPL
@@ -23,12 +23,12 @@ define('AC_SEO_ACF_ANALYSIS_PLUGIN_NAME', untrailingslashit(plugin_basename(__FI
 class AC_Yoast_SEO_ACF_Content_Analysis
 {
     /**
-     * Plugin version, used for autoatic updates and for cache-busting of style and script file references.
+     * Plugin version, used for automatic updates and for cache-busting of style and script file references.
      *
      * @since    0.1.0
      * @var     string
      */
-    const VERSION = '1.0';
+    const VERSION = '1.2.0';
     /**
      * Unique identifier for the plugin.
      * This value is used as the text domain when internationalizing strings of text. It should
@@ -82,7 +82,7 @@ class AC_Yoast_SEO_ACF_Content_Analysis
 
         $values = $this->get_values( $fields );
         $data = '';
-        
+
         foreach($fields as $key =>$item) {
             
             if(in_array($key, $this->get_excluded_fields()) ){
@@ -90,17 +90,21 @@ class AC_Yoast_SEO_ACF_Content_Analysis
             } else {
                 switch(gettype($item)) {
                     case 'string':
-                        if (preg_match('/(\.jpg|\.png|\.bmp)$/', $item)) {
-                            $data = $data.' <img src="'.$item .'">';
-                        } else {
-                            $data = $data.' '.$item;    
-                        }
-                        
+                        $data = $data.' '.$item;    
                         break;
+
                     case 'array':
-                        if($key === 'sizes' && isset($item['sizes']['thumbnail'])) {
+                        if(isset($item['sizes']['thumbnail'])) {
                             // put all images in img tags for scoring.
-                            $data = $data.' <img src="'.$item['sizes']['thumbnail'];    
+                            $alt = '';
+                            if(isset($item['alt'])) {
+                                $alt = $item['alt'];
+                            }
+                            $title = '';
+                            if(isset($item['title'])) {
+                                $title = $item['title'];
+                            }
+                            $data = $data.' <img src="'.$item['sizes']['thumbnail'] . '" alt="' . $alt .'" title="' . $title . '"/>';
                         } else {
 
                             $data = $data.' '.$this->get_field_data($item);
@@ -120,7 +124,9 @@ class AC_Yoast_SEO_ACF_Content_Analysis
     }
 
     function ajax_get_fields() {
-        $pid = $_POST['postId'];
+
+        $pid = filter_input(INPUT_POST, 'postId', FILTER_SANITIZE_STRING);
+
         
         $fields = get_fields( $pid );
 
@@ -138,7 +144,10 @@ class AC_Yoast_SEO_ACF_Content_Analysis
 
             // if this is a taxonomy, get the taxonomy id else get the post id
             if($this->pagenow === 'edit-tags.php' ) {
-                $id = $_GET['taxonomy'] . '_' . $_GET['tag_ID'];
+
+                $id = filter_input(INPUT_GET, 'taxonomy', FILTER_SANITIZE_STRING) . '_' . filter_input(INPUT_GET, 'tag_ID', FILTER_SANITIZE_NUMBER_INT);
+
+                //$id = esc_attr( trim( $_GET['taxonomy'] ) ) . '_' . intval( trim( $_GET['tag_ID'] ) );
                 wp_enqueue_script($this->plugin_slug, AC_SEO_ACF_ANALYSIS_PLUGIN_URL . 'yoast-seo-plugin.js', array('jquery', 'yoast-seo', 'wp-seo-term-scraper'), self::VERSION);    
             } else {
                 global $post;
