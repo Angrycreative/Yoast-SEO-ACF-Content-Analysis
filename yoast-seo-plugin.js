@@ -43,7 +43,7 @@ jQuery( document ).ready( function($) {
     };
 
     YoastSEO_ACF_Content_Analysis.prototype.getFieldData = function( data ) {
-        console.log(fieldData);
+        
         return data + ' ' + fieldData;
 
     };
