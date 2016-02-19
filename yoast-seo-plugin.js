@@ -1,19 +1,15 @@
-jQuery( document ).ready( function($) {
-
+jQuery(window).on('YoastSEO:ready', function () {
     var fieldData = "";
     YoastSEO_ACF_Content_Analysis = function() {
         
         YoastSEO.app.registerPlugin( 'ACF_Content_Analysis', {status: 'loading'} );
-        
-        this.appendACFFields(); 
-
-        
+        this.appendACFFields();
     }
-     
-    YoastSEO_ACF_Content_Analysis.prototype.appendACFFields = function(  ) {
+
+    YoastSEO_ACF_Content_Analysis.prototype.appendACFFields = function() {
 
         var $this = this;
-        $.ajax({
+        jQuery.ajax({
             url: yoast_acf_settings.ajax_url,
             type: 'POST',
             dataType: 'JSON',
@@ -23,15 +19,12 @@ jQuery( document ).ready( function($) {
             }
         })
         .done(function(acf_fields) {
-
             $this.setFieldData(acf_fields);
-
         })
         .fail(function(data) {
             console.log("error");
             console.log(data);
         });
-        
     };
 
     YoastSEO_ACF_Content_Analysis.prototype.setFieldData = function( data ) {
@@ -50,10 +43,8 @@ jQuery( document ).ready( function($) {
 
     YoastSEO_ACF_Content_Analysis.prototype.registerModification = function( data ) {
         YoastSEO.app.registerModification( 'content', this.getFieldData, 'ACF_Content_Analysis', 50 );
-            
     };
 
-    
-
     new YoastSEO_ACF_Content_Analysis();
+
 });

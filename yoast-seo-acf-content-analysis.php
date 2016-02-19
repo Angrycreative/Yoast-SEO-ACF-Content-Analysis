@@ -3,7 +3,7 @@
 Plugin Name: ACF-Content Analysis for Yoast SEO
 Plugin URI: http://angrycreative.se
 Description: This plugin ensures that Yoast SEO analysize all ACF content including Flexible Content and Repeaters
-Version: 1.2.0
+Version: 1.2.1
 Author: ViktorFroberg, marol87, pekz0r, angrycreative
 Author URI: http://angrycreative.se
 License: GPL
@@ -28,7 +28,7 @@ class AC_Yoast_SEO_ACF_Content_Analysis
      * @since    0.1.0
      * @var     string
      */
-    const VERSION = '1.2.0';
+    const VERSION = '1.2.1';
     /**
      * Unique identifier for the plugin.
      * This value is used as the text domain when internationalizing strings of text. It should
@@ -127,7 +127,6 @@ class AC_Yoast_SEO_ACF_Content_Analysis
 
         $pid = filter_input(INPUT_POST, 'postId', FILTER_SANITIZE_STRING);
 
-        
         $fields = get_fields( $pid );
 
         wp_send_json( $this->get_field_data( $fields ) );   
@@ -147,16 +146,13 @@ class AC_Yoast_SEO_ACF_Content_Analysis
 
                 $id = filter_input(INPUT_GET, 'taxonomy', FILTER_SANITIZE_STRING) . '_' . filter_input(INPUT_GET, 'tag_ID', FILTER_SANITIZE_NUMBER_INT);
 
-                //$id = esc_attr( trim( $_GET['taxonomy'] ) ) . '_' . intval( trim( $_GET['tag_ID'] ) );
-                wp_enqueue_script($this->plugin_slug, AC_SEO_ACF_ANALYSIS_PLUGIN_URL . 'yoast-seo-plugin.js', array('jquery', 'yoast-seo', 'wp-seo-term-scraper'), self::VERSION);    
             } else {
                 global $post;
                 $id = $post->ID;
-                wp_enqueue_script($this->plugin_slug, AC_SEO_ACF_ANALYSIS_PLUGIN_URL . 'yoast-seo-plugin.js', array('jquery', 'yoast-seo', 'wp-seo-post-scraper'), self::VERSION);    
             }
 
-            
-            
+            wp_enqueue_script($this->plugin_slug, AC_SEO_ACF_ANALYSIS_PLUGIN_URL . 'yoast-seo-plugin.js', array('jquery'), self::VERSION);
+
             wp_localize_script($this->plugin_slug, 'yoast_acf_settings', array(
                 'ajax_url' => admin_url( 'admin-ajax.php' ),
                 'id' => $id,
@@ -166,8 +162,6 @@ class AC_Yoast_SEO_ACF_Content_Analysis
         
     }
 
-
 }
 
 new AC_Yoast_SEO_ACF_Content_Analysis();
-
