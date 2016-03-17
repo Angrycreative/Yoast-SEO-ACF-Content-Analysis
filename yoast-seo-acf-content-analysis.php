@@ -3,7 +3,7 @@
 Plugin Name: ACF-Content Analysis for Yoast SEO
 Plugin URI: http://angrycreative.se
 Description: This plugin ensures that Yoast SEO analysize all ACF content including Flexible Content and Repeaters
-Version: 1.2.1
+Version: 1.2.2
 Author: ViktorFroberg, marol87, pekz0r, angrycreative
 Author URI: http://angrycreative.se
 License: GPL
@@ -28,7 +28,7 @@ class AC_Yoast_SEO_ACF_Content_Analysis
      * @since    0.1.0
      * @var     string
      */
-    const VERSION = '1.2.1';
+    const VERSION = '1.2.2';
     /**
      * Unique identifier for the plugin.
      * This value is used as the text domain when internationalizing strings of text. It should
@@ -62,13 +62,14 @@ class AC_Yoast_SEO_ACF_Content_Analysis
 
     function __construct(){
         
-        
         add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_scripts'));
         add_action( 'admin_print_scripts-post-new.php', array($this, 'enqueue_admin_scripts') , 999 );
         add_action( 'admin_print_scripts-post.php', array($this, 'enqueue_admin_scripts'), 999 );
         add_action( 'wp_ajax_' . $this->plugin_slug . '_get_fields', array($this, 'ajax_get_fields') );
-
-        $this->pagenow = $GLOBALS['pagenow'];
+        if(isset($GLOBALS['pagenow'])) {
+            $this->pagenow = $GLOBALS['pagenow'];    
+        }
+        
     }
     function get_excluded_fields() {
         return apply_filters( 'ysacf_exclude_fields', array() );
@@ -164,4 +165,8 @@ class AC_Yoast_SEO_ACF_Content_Analysis
 
 }
 
-new AC_Yoast_SEO_ACF_Content_Analysis();
+add_action( 'plugins_loaded', 'init_ysacf' );
+
+function init_ysacf() {
+    new AC_Yoast_SEO_ACF_Content_Analysis();
+}
