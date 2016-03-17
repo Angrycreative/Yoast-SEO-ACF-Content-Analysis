@@ -45,7 +45,7 @@ class AC_Yoast_SEO_ACF_Content_Analysis
      * @since    1.1.0
      * @var string
      */
-    private $pagenow;
+    private $pagenow = '';
 
     /**
      * variable containing places where the plugin will fetch acf data
