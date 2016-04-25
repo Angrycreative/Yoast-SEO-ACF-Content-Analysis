@@ -81,47 +81,43 @@ class AC_Yoast_SEO_ACF_Content_Analysis
 
     function get_field_data($fields) {
 
-        $values = $this->get_values( $fields );
         $data = '';
+        if($fields) {
+            foreach($fields as $key =>$item) {
 
-        foreach($fields as $key =>$item) {
-            
-            if(in_array($key, $this->get_excluded_fields()) ){
-                continue;
-            } else {
-                switch(gettype($item)) {
-                    case 'string':
-                        $data = $data.' '.$item;    
-                        break;
+                if(in_array($key, $this->get_excluded_fields()) ){
+                    continue;
+                } else {
+                    switch(gettype($item)) {
+                        case 'string':
+                            $data = $data.' '.$item;    
+                            break;
 
-                    case 'array':
-                        if(isset($item['sizes']['thumbnail'])) {
-                            // put all images in img tags for scoring.
-                            $alt = '';
-                            if(isset($item['alt'])) {
-                                $alt = $item['alt'];
+                        case 'array':
+                            if(isset($item['sizes']['thumbnail'])) {
+                                // put all images in img tags for scoring.
+                                $alt = '';
+                                if(isset($item['alt'])) {
+                                    $alt = $item['alt'];
+                                }
+                                $title = '';
+                                if(isset($item['title'])) {
+                                    $title = $item['title'];
+                                }
+                                $data = $data.' <img src="'.$item['sizes']['thumbnail'] . '" alt="' . $alt .'" title="' . $title . '"/>';
+                            } else {
+
+                                $data = $data.' '.$this->get_field_data($item);
                             }
-                            $title = '';
-                            if(isset($item['title'])) {
-                                $title = $item['title'];
-                            }
-                            $data = $data.' <img src="'.$item['sizes']['thumbnail'] . '" alt="' . $alt .'" title="' . $title . '"/>';
-                        } else {
-
-                            $data = $data.' '.$this->get_field_data($item);
-                        }
-                        
-                        break;
+                            
+                            break;
+                    }
                 }
-            }
+            }    
         }
         
+        
         return $data;
-    }
-
-    function get_values($array) {
-        $value_array = array_values($array);
-        return $value_array;
     }
 
     function ajax_get_fields() {
