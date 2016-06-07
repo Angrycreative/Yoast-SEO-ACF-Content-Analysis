@@ -2,8 +2,8 @@
 Contributors: ViktorFroberg, marol87, pekz0r, angrycreative
 Tags: Angry Creative, Yoast SEO, Yoast, SEO, ACF, Advanced Custom Fields
 Requires at least: 4.0
-Tested up to: 4.5
-Stable tag: 1.2.3
+Tested up to: 4.5.2
+Stable tag: 1.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,12 +18,13 @@ Requires version 3.0 or later of Yoast SEO plugin.
 = Filters =
 `ysacf_exclude_fields`: exclude acf fields from Yoast scoring. Should return array of field names.
 
-Example: exclude text-color field from Yoast scoring.
+Example: exclude the text-color and background_image fields from Yoast scoring.
 
 `
 add_filter('ysacf_exclude_fields', function(){
     return array(
         'text_color',
+        'background_image'
     );
 });
 `
@@ -35,6 +36,10 @@ add_filter('ysacf_exclude_fields', function(){
 2. Activate the plugin through the 'Plugins' menu in WordPress (activate for network if multisite)
 
 == Changelog ==
+
+= 1.2.4 =
+* Fix filter.
+* Add check for empty content.
 
 = 1.2.3 =
 * Fix PHP warnings.

@@ -1,10 +1,10 @@
 jQuery(window).on('YoastSEO:ready', function () {
     var fieldData = "";
     YoastSEO_ACF_Content_Analysis = function() {
-        
+
         YoastSEO.app.registerPlugin( 'ACF_Content_Analysis', {status: 'loading'} );
         this.appendACFFields();
-    }
+    };
 
     YoastSEO_ACF_Content_Analysis.prototype.appendACFFields = function() {
 
@@ -13,7 +13,7 @@ jQuery(window).on('YoastSEO:ready', function () {
             url: yoast_acf_settings.ajax_url,
             type: 'POST',
             dataType: 'JSON',
-            data: { 
+            data: {
                 postId : yoast_acf_settings.id,
                 action: yoast_acf_settings.ajax_action
             }
@@ -36,7 +36,7 @@ jQuery(window).on('YoastSEO:ready', function () {
     };
 
     YoastSEO_ACF_Content_Analysis.prototype.getFieldData = function( data ) {
-        
+
         return data + ' ' + fieldData;
 
     };
