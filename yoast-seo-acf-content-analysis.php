@@ -1,9 +1,9 @@
 <?php
 /*
-Plugin Name: ACF-Content Analysis for Yoast SEO
+Plugin Name: ACF Content Analysis for Yoast SEO
 Plugin URI: http://angrycreative.se
 Description: Ensure that Yoast SEO analysize all ACF content including Flexible Content and Repeaters.
-Version: 1.2.4
+Version: 1.2.5
 Author: ViktorFroberg, marol87, pekz0r, angrycreative
 Author URI: http://angrycreative.se
 License: GPL
@@ -54,10 +54,10 @@ class AC_Yoast_SEO_ACF_Content_Analysis
      * @var array
      */
     private $analysize_page_types = array(
-            'edit-tags.php',
+            'term.php',
             'post.php',
+            'edit-tags.php', // will be removed in future versions of the plugin.
             'post-new.php',
-
         );
 
     function __construct(){
@@ -139,7 +139,7 @@ class AC_Yoast_SEO_ACF_Content_Analysis
         if( in_array( $this->pagenow, $this->analysize_page_types ) ) {
 
             // if this is a taxonomy, get the taxonomy id else get the post id
-            if($this->pagenow === 'edit-tags.php' ) {
+            if($this->pagenow === 'term.php' || $this->pagenow === 'edit-tags.php') {
 
                 $id = filter_input(INPUT_GET, 'taxonomy', FILTER_SANITIZE_STRING) . '_' . filter_input(INPUT_GET, 'tag_ID', FILTER_SANITIZE_NUMBER_INT);
 

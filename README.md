@@ -1,4 +1,4 @@
-# ACF-Content Analysis for Yoast SEO
+# ACF Content Analysis for Yoast SEO
 This plugin ensures that Yoast SEO analysize all ACF content including FlexiContent and Repeaters
 
 ## Filters
