@@ -28,7 +28,7 @@ class AC_Yoast_SEO_ACF_Content_Analysis
      * @since    0.1.0
      * @var     string
      */
-    const VERSION = '1.2.4';
+    const VERSION = '1.2.5';
     /**
      * Unique identifier for the plugin.
      * This value is used as the text domain when internationalizing strings of text. It should
