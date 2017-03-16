@@ -37,7 +37,7 @@ add_filter('ysacf_exclude_fields', function(){
 
 == Frequently Asked Questions ==
 
-=== I'm using Flexible Content and the field name is displayed in the snippet preview. How do I remove it? ===
+= I'm using Flexible Content and the field name is displayed in the snippet preview. How do I remove it? =
 
 You can remove it using the ysacf_exclude_fields filter.
 
