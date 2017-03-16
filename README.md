@@ -5,7 +5,7 @@ This plugin ensures that Yoast SEO analysize all ACF content including FlexiCont
 `ysacf_exclude_fields`: exclude acf fields from Yoast scoring.
 
 
-Example: exclude text-color field from Yoast scoring.
+**Example:** exclude text-color field from Yoast scoring.
 
 ```
 add_filter('ysacf_exclude_fields', function($fields){
@@ -18,7 +18,7 @@ add_filter('ysacf_exclude_fields', function($fields){
 `ysacf_field_overwrite`: Modify a specific field value.
 
 
-Example: Modify a specific field value
+**Example:** Modify a specific field value
 
 ```
 add_filter('ysacf_field_overwrite', function($field_key, $field_value, $postID) {
@@ -37,7 +37,7 @@ add_filter('ysacf_field_overwrite', function($field_key, $field_value, $postID) 
 `ysacf_finalize`: filters the data.
 
 
-Example: Append extra data to the final output that is send back to Yoast SEO.
+**Example:** Append extra data to the final output that is send back to Yoast SEO.
 
 ```
 add_filter('ysacf_finalize', function($data, $postID){
