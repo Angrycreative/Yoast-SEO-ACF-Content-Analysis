@@ -2,8 +2,8 @@
 Contributors: ViktorFroberg, marol87, pekz0r, angrycreative
 Tags: Angry Creative, Yoast SEO, Yoast, SEO, ACF, Advanced Custom Fields
 Requires at least: 4.0
-Tested up to: 4.5.3
-Stable tag: 1.2.5
+Tested up to: 4.7.3
+Stable tag: 1.2.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,7 +35,25 @@ add_filter('ysacf_exclude_fields', function(){
 1. Download, unzip and upload the plugin folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress (activate for network if multisite)
 
+== Frequently Asked Questions ==
+
+= I'm using Flexible Content and the field name is displayed in the snippet preview. How do I remove it? =
+
+You can remove it using the ysacf_exclude_fields filter.
+
+`
+add_filter('ysacf_exclude_fields', function(){
+    return array(
+        'acf_fc_layout',
+    );
+});
+`
+
 == Changelog ==
+
+= 1.2.6 =
+* Tested with WordPress 4.7.3.
+* Added FAQ section to plugin repository page.
 
 = 1.2.5 =
 * Fix for taxonomies in the latest version of WordPress
