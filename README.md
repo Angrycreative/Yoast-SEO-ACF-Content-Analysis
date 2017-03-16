@@ -42,7 +42,7 @@ Example: Append extra data to the final output that is send back to Yoast SEO.
 ```
 add_filter('ysacf_finalize', function($data, $postID){
     
-    $data .= 'Modify the final output e.g. append extra data or logic'
+    $data .= 'Modify the final output e.g. append extra data or logic';
     
     return $data;
 }, 10);
