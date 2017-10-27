@@ -1,3 +1,5 @@
+## This repository is DEPRECATED
+This repository is deprecated, all development is done at [https://github.com/Yoast/yoast-acf-analysis](https://github.com/Yoast/yoast-acf-analysis).
 # ACF Content Analysis for Yoast SEO
 This plugin ensures that Yoast SEO analysize all ACF content including FlexiContent and Repeaters
 
