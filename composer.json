@@ -1,0 +1,6 @@
+{
+    "name": "angrycreative/yoast-seo-acf-content-analysis",
+    "description": "Ensure that Yoast SEO analysize all ACF content including Flexible Content and Repeaters.",
+    "type": "wordpress-plugin",
+    "require": {}
+}
