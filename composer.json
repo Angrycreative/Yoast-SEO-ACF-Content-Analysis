@@ -1,5 +1,5 @@
 {
-    "name": "all3dp/Yoast-SEO-ACF-Content-Analysis",
+    "name": "all3dp/yoast-seo-acf-content-analysis",
     "type": "wordpress-plugin",
     "require": {
         "php": ">=5.5",
