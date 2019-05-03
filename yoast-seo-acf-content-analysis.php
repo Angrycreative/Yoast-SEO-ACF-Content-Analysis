@@ -66,6 +66,15 @@ class AC_Yoast_SEO_ACF_Content_Analysis
         add_action( 'admin_print_scripts-post-new.php', array($this, 'enqueue_admin_scripts') , 999 );
         add_action( 'admin_print_scripts-post.php', array($this, 'enqueue_admin_scripts'), 999 );
         add_action( 'wp_ajax_' . $this->plugin_slug . '_get_fields', array($this, 'ajax_get_fields') );
+
+        add_filter('ysacf_field_overwrite', function($key, $item, $postID) {
+          return $item;
+        }, 1, 3);
+
+        add_filter('ysacf_finalize', function($data, $postID) {
+          return $data;
+        }, 1, 2);
+
         if(isset($GLOBALS['pagenow'])) {
             $this->pagenow = $GLOBALS['pagenow'];
         }
@@ -74,6 +83,7 @@ class AC_Yoast_SEO_ACF_Content_Analysis
     function get_excluded_fields() {
         return apply_filters( 'ysacf_exclude_fields', array() );
     }
+
     /**
      * Filter what ACF Fields not to score
      * @param field name array
@@ -81,13 +91,20 @@ class AC_Yoast_SEO_ACF_Content_Analysis
 
     function get_field_data($fields) {
 
+        $pid = filter_input(INPUT_POST, 'postId', FILTER_SANITIZE_STRING);
         $data = '';
+
         if(!empty($fields)) {
+
             foreach($fields as $key =>$item) {
 
                 if(in_array((string)$key, $this->get_excluded_fields()) ){
                     continue;
                 } else {
+
+
+                    $item = apply_filters('ysacf_field_overwrite', $key, $item, $pid);
+
                     switch(gettype($item)) {
                         case 'string':
                             $data = $data.' '.$item;
@@ -116,7 +133,6 @@ class AC_Yoast_SEO_ACF_Content_Analysis
             }
         }
 
-
         return $data;
     }
 
@@ -126,7 +142,7 @@ class AC_Yoast_SEO_ACF_Content_Analysis
 
         $fields = get_fields( $pid );
 
-        wp_send_json( $this->get_field_data( $fields ) );
+        wp_send_json( apply_filters('ysacf_finalize', $this->get_field_data( $fields ), $pid ) );
     }
 
     /**

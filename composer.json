@@ -1,0 +1,8 @@
+{
+    "name": "all3dp/yoast-seo-acf-content-analysis",
+    "type": "wordpress-plugin",
+    "require": {
+        "php": ">=5.5",
+        "composer/installers": "*"
+    }
+}
